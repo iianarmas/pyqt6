@@ -1,5 +1,6 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QLabel
-from PyQt6.QtGui import QIcon, QFont
+from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QGraphicsDropShadowEffect
+from PyQt6.QtGui import QIcon, QFont, QColor
+
 import sys
 
 button_text = 'Click Here'
@@ -42,6 +43,7 @@ class Window(QWidget):
         self.counter = 1
 
 
+
     def my_widgets(self):
         label = QLabel('My Label', self)
         label.move(int(290 + 171/5.2), 80)
@@ -54,12 +56,22 @@ class Window(QWidget):
         button.setFixedHeight(61)"""
         button.setGeometry(290, 300, 171, 61)
         stylesheet = (
-            'background-color: white;'
+            'background-color: #fcfcfc;'
             'border-radius: 15'
         )
 
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(24)
+        shadow.setXOffset(0)
+        shadow.setYOffset(8)
+        shadow.setColor(QColor('#e4e3e5'))  # also accepts rgba values with syntax QColor(63, 63, 63, 180)
+
         button.setStyleSheet(stylesheet)
         button.setIcon(QIcon('newlogo.png'))
+        button.setGraphicsEffect(shadow)
+
+
+
         button.released.connect(self.button_click)
 
 
