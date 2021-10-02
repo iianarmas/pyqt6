@@ -5,14 +5,12 @@ from dialog import Ui_Dialog
 from dash import Ui_MainWindow
 
 
-class DialogWindow(QDialog):
+class DialogWindow(QDialog, Ui_Dialog):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.dialog_window = Ui_Dialog()
-        self.dialog_window.setupUi(self)
+        self.setupUi(self)
 
-        self.button_okay = self.dialog_window.button_okay
         self.button_okay.released.connect(self.on_button_okay)
 
         self.main_window = MainWindow()
@@ -23,12 +21,11 @@ class DialogWindow(QDialog):
         QMessageBox.information(self, 'Success', 'You are logged in!')
 
 
-class MainWindow(QMainWindow):
+class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.dash_window = Ui_MainWindow()
-        self.dash_window.setupUi(self)
+        self.setupUi(self)
 
 
 if __name__ == '__main__':
