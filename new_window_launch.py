@@ -1,6 +1,6 @@
 # =========== MAIN.PY =========== #
 
-from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog
+from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QMessageBox
 from dialog import Ui_Dialog
 from dash import Ui_MainWindow
 
@@ -11,13 +11,16 @@ class DialogWindow(QDialog):
 
         self.dialog_window = Ui_Dialog()
         self.dialog_window.setupUi(self)
-        self.dialog_window.button_okay.released.connect(self.on_button_okay)
+
+        self.button_okay = self.dialog_window.button_okay
+        self.button_okay.released.connect(self.on_button_okay)
 
         self.main_window = MainWindow()
 
     def on_button_okay(self):
-        self.main_window.show()
         self.hide()
+        self.main_window.show()
+        QMessageBox.information(self, 'Success', 'You are logged in!')
 
 
 class MainWindow(QMainWindow):
@@ -35,6 +38,7 @@ if __name__ == '__main__':
     window = DialogWindow()
     window.show()
     sys.exit(app.exec())
+
     
 # =========== DIALOG.PY =========== #
 
