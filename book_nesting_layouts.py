@@ -20,7 +20,9 @@ class MainWindow(QMainWindow):
         layout2 = QVBoxLayout()
         layout3 = QVBoxLayout()
 
-        layout1.addWidget(Color('green'))
+        # setting layout margins and spacing
+        layout1.setSpacing(20)
+        layout1.setContentsMargins(0, 0, 0, 0)
 
         layout2.addWidget(Color('red'))
         layout2.addWidget(Color('yellow'))
@@ -28,8 +30,9 @@ class MainWindow(QMainWindow):
 
         layout3.addWidget(Color('yellow'))
         layout3.addWidget(Color('red'))
-
+       
         layout1.addLayout(layout2)
+        layout1.addWidget(Color('green'))
         layout1.addLayout(layout3)
 
         widget = QWidget()
@@ -44,6 +47,7 @@ if __name__ == "__main__":
     window = MainWindow()
     window.show()
     app.exec()
+
 
     
 # ============ LAYOUT_COLORWIDGET.PY ============
