@@ -1,10 +1,11 @@
 # ========== MAIN.PY ========== #
 
+from PyQt6 import QtGui
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPalette, QColor
 
 from test import Ui_MainWindow
-from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtWidgets import QApplication, QMainWindow, QStyle
 from random import randint
 
 
@@ -19,7 +20,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setPalette(palette)
 
         self.setupUi(self)
-
+        self.generate_button.setIcon(QtGui.QIcon('newlogo.png'))
         self.generate_button.released.connect(self.generate_random)
 
     def generate_random(self):
@@ -32,6 +33,7 @@ if __name__ == "__main__":
     window = MainWindow()
     window.show()
     app.exec()
+
 
 # ========== TEST.PY ========== #
 
