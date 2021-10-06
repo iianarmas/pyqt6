@@ -1,5 +1,8 @@
 # ========== MAIN.PY ========== #
 
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QPalette, QColor
+
 from test import Ui_MainWindow
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from random import randint
@@ -8,6 +11,12 @@ from random import randint
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        palette = QPalette()
+        palette.setColor(QPalette.ColorRole.Window, QColor('black'))
+        palette.setColor(QPalette.ColorRole.WindowText, QColor('white'))
+
+        self.setPalette(palette)
 
         self.setupUi(self)
 
