@@ -63,11 +63,9 @@ class MainWindow(QMainWindow):
         """if name == '':
             name = None
             self.query.bindValue(":name", name)
-
             self.execute_query()
         else:
             self.query.bindValue(":name", name)
-
             self.execute_query()"""
         
         # for python3.10
