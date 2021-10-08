@@ -60,7 +60,7 @@ class MainWindow(QMainWindow):
 
     def update_filter(self, text=None):
         name = text
-        if name == '':
+        """if name == '':
             name = None
             self.query.bindValue(":name", name)
 
@@ -68,7 +68,17 @@ class MainWindow(QMainWindow):
         else:
             self.query.bindValue(":name", name)
 
-            self.execute_query()
+            self.execute_query()"""
+        
+        # for python3.10
+        match name:
+            case '':
+                name = None
+                self.query.bindValue(':name', name)
+                self.execute_query()
+            case _:
+                self.query.bindValue(':name', name)
+                self.execute_query()
 
 
 if __name__ == "__main__":
