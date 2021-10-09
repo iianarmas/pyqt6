@@ -21,12 +21,51 @@ class _Bar(QtWidgets.QWidget):
         painter = QtGui.QPainter(self)
 
         brush = QtGui.QBrush()
-        brush.setColor(QtGui.QColor('gray'))
+        brush.setColor(QtGui.QColor('black'))
         brush.setStyle(Qt.BrushStyle.SolidPattern)
         rect = QtCore.QRect(0, 0, painter.device().width(), painter.device().height())
         painter.fillRect(rect, brush)
 
-        # test to Get current state
+        # Get current state
+        dial = self.parent()._dial  # this will access the parent's (PowerBar()) ._dial
+        vmin, vmax = dial.minimum(), dial.maximum()
+        value = dial.value()
+
+        # determine the number of steps to draw
+        # ::start
+        pc = (value - vmin) / (vmax - vmin)
+        n_steps_to_draw = int(pc * 5)
+        # ::end
+
+        # tag::dimensions[]
+        padding = 5
+
+        # define canvas
+        d_width = painter.device().width() - (padding * 2)
+        d_height = painter.device().height() - (padding * 2)
+        # end::dimensions[]
+
+        # tag::layout[]
+        step_size = d_height / 5
+        bar_height = step_size * 0.6
+        # end::layout[]
+
+        # tag::draw[]
+        brush.setColor(QtGui.QColor('red'))
+
+        for n in range(n_steps_to_draw):
+            ypos = (1 + n) * step_size
+            rect = QtCore.QRect(
+                padding,
+                padding + d_height - int(ypos),
+                d_width,
+                int(bar_height)
+            )
+            painter.fillRect(rect, brush)
+        # end::draw[]
+        painter.end()
+
+        """# test to Get current state
         # ::start
         dial = self.parent()._dial      # this will access the parent's (PowerBar()) ._dial
         vmin, vmax = dial.minimum(), dial.maximum()
@@ -41,8 +80,15 @@ class _Bar(QtWidgets.QWidget):
         font.setPointSize(18)
         painter.setFont(font)
 
-        painter.drawText(25, 25, '{}-->{}<--{}'.format(vmin, value, vmax))
+        # determine the number of steps to draw
+        # ::start
+        pc = (value - vmin) / (vmax - vmin)
+        n_steps_to_draw = int(pc * 5)
+        # ::end
+
+        painter.drawText(25, 25, '{}'.format(n_steps_to_draw))
         painter.end()
+        # ::end"""
 
     def _trigger_refresh(self):
         self.update()
